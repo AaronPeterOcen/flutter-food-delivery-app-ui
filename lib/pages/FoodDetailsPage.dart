@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/animation/ScaleRoute.dart';
 import 'package:flutter_app/pages/FoodOrderPage.dart';
-import 'package:flutter_app/widgets/FoodDetailsSlider.dart';
 
 class FoodDetailsPage extends StatefulWidget {
   const FoodDetailsPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FoodDetailsPageState createState() => _FoodDetailsPageState();
 }
 
@@ -35,7 +35,8 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   color: Color(0xFF3a3737),
                 ),
                 onPressed: () {
-                  Navigator.push(context, ScaleRoute(page: FoodOrderPage()));
+                  Navigator.push(
+                      context, ScaleRoute(page: const FoodOrderPage()));
                 })
           ],
           systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -51,23 +52,15 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
               Card(
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Image.asset(
-                  'assets/images/bestfood/' + 'ic_best_food_8' + ".jpeg",
-                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0),
                 ),
                 elevation: 1,
                 margin: const EdgeInsets.all(5),
+                child: Image.asset(
+                  'assets/images/bestfood/' 'ic_best_food_8' + ".jpeg",
+                ),
               ),
-              /*  Container(
-                height: 150,
-                child:FoodDetailsSlider(
-                    slideImage1: "assets/images/bestfood/ic_best_food_8.jpeg",
-                    slideImage2: "assets/images/bestfood/ic_best_food_9.jpeg",
-                    slideImage3: "assets/images/bestfood/ic_best_food_10.jpeg"),
-              ),*/
-
               FoodTitleWidget(
                   productName: "Grilled Salmon",
                   productPrice: "\$96.00",
@@ -99,17 +92,17 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   ], // list of tabs
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 150,
                 child: TabBarView(
                   children: [
                     Container(
                       color: Colors.white24,
-                      child: DetailContentMenu(),
+                      child: const DetailContentMenu(),
                     ),
                     Container(
                       color: Colors.white24,
-                      child: DetailContentMenu(),
+                      child: const DetailContentMenu(),
                     ), // class name
                   ],
                 ),
@@ -123,6 +116,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
   }
 }
 
+// ignore: must_be_immutable
 class FoodTitleWidget extends StatelessWidget {
   String productName;
   String productPrice;
@@ -189,9 +183,9 @@ class BottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return const SizedBox(
       width: double.infinity,
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Column(
@@ -293,7 +287,7 @@ class AddToCartMenu extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: FoodOrderPage()));
+              Navigator.push(context, ScaleRoute(page: const FoodOrderPage()));
             },
             child: Container(
               width: 200.0,
@@ -332,7 +326,7 @@ class DetailContentMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book.',
+      'Lorem ipsum, or ipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book.',
       style: TextStyle(
           fontSize: 14.0,
           color: Colors.black87,

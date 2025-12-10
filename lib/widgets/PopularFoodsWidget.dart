@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/animation/RotationRoute.dart';
-import 'package:flutter_app/animation/ScaleRoute.dart';
-import 'package:flutter_app/pages/FoodDetailsPage.dart';
 
 class PopularFoodsWidget extends StatefulWidget {
   const PopularFoodsWidget({Key? key}) : super(key: key);
@@ -51,187 +48,54 @@ class PopularFoodTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(context, ScaleRoute(page: const FoodDetailsPage()));
-      },
+    // Replace the overflowing Column with a constrained, flexible layout:
+    return SizedBox(
+      height: 226, // match parent constraint or tweak
       child: Column(
-        children: <Widget>[
-          Container(
-            padding:
-                const EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
-            decoration: const BoxDecoration(boxShadow: [
-              /* BoxShadow(
-                color: Color(0xFFfae3e2),
-                blurRadius: 15.0,
-                offset: Offset(0, 0.75),
-              ),*/
-            ]),
-            child: Card(
-                color: Colors.white,
-                elevation: 0,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5.0),
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          // image area: expands to available space
+          Expanded(
+            flex: 6,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                'assets/images/popular_foods/' + imageUrl + ".png",
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+          ),
+          // details area: expands and allows text to wrap/ellipsis
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color(0xFF6e6e71),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
                   ),
-                ),
-                child: SizedBox(
-                  width: 170,
-                  height: 210,
-                  child: Column(
-                    children: <Widget>[
-                      Stack(
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Container(
-                              alignment: Alignment.topRight,
-                              width: double.infinity,
-                              padding: const EdgeInsets.only(right: 5, top: 5),
-                              child: Container(
-                                height: 28,
-                                width: 28,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white70,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xFFfae3e2),
-                                        blurRadius: 25.0,
-                                        offset: Offset(0.0, 0.75),
-                                      ),
-                                    ]),
-                                child: const Icon(
-                                  Icons.favorite,
-                                  color: Color(0xFFfb3132),
-                                  size: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Center(
-                                child: Image.asset(
-                              'assets/images/popular_foods/' +
-                                  imageUrl +
-                                  ".png",
-                              width: 130,
-                              height: 140,
-                            )),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            padding: const EdgeInsets.only(left: 5, top: 5),
-                            child: Text(name,
-                                style: const TextStyle(
-                                    color: Color(0xFF6e6e71),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                          Container(
-                            alignment: Alignment.topRight,
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Container(
-                              height: 28,
-                              width: 28,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white70,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFFfae3e2),
-                                      blurRadius: 25.0,
-                                      offset: Offset(0.0, 0.75),
-                                    ),
-                                  ]),
-                              child: const Icon(
-                                Icons.near_me,
-                                color: Color(0xFFfb3132),
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                alignment: Alignment.topLeft,
-                                padding: const EdgeInsets.only(left: 5, top: 5),
-                                child: Text(rating,
-                                    style: const TextStyle(
-                                        color: Color(0xFF6e6e71),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400)),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(top: 3, left: 5),
-                                child: const Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      size: 10,
-                                      color: Color(0xFFfb3132),
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      size: 10,
-                                      color: Color(0xFFfb3132),
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      size: 10,
-                                      color: Color(0xFFfb3132),
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      size: 10,
-                                      color: Color(0xFFfb3132),
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      size: 10,
-                                      color: Color(0xFF9b9b9c),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                padding: const EdgeInsets.only(left: 5, top: 5),
-                                child: Text("($numberOfRating)",
-                                    style: const TextStyle(
-                                        color: Color(0xFF6e6e71),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400)),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            padding: const EdgeInsets.only(
-                                left: 5, top: 5, right: 5),
-                            child: Text('\$' + price,
-                                style: const TextStyle(
-                                    color: Color(0xFF6e6e71),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600)),
-                          )
-                        ],
-                      )
-                    ],
+                  const SizedBox(height: 4),
+                  Text(
+                    '\$$price',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color(0xFF6e6e71),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
                   ),
-                )),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -275,69 +139,96 @@ class PopularFoodItems extends StatelessWidget {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: <Widget>[
-        PopularFoodTiles(
-            name: "Fried Egg",
-            imageUrl: "ic_popular_food_1",
-            rating: '4.9',
-            numberOfRating: '200',
-            price: '15.06',
-            slug: "fried_egg"),
-        PopularFoodTiles(
-            name: "Mixed Vegetable",
-            imageUrl: "ic_popular_food_3",
-            rating: "4.9",
-            numberOfRating: "100",
-            price: "17.03",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Salad With Chicken",
-            imageUrl: "ic_popular_food_4",
-            rating: "4.0",
-            numberOfRating: "50",
-            price: "11.00",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Mixed Salad",
-            imageUrl: "ic_popular_food_5",
-            rating: "4.00",
-            numberOfRating: "100",
-            price: "11.10",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Red meat,Salad",
-            imageUrl: "ic_popular_food_2",
-            rating: "4.6",
-            numberOfRating: "150",
-            price: "12.00",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Mixed Salad",
-            imageUrl: "ic_popular_food_5",
-            rating: "4.00",
-            numberOfRating: "100",
-            price: "11.10",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Potato,Meat fry",
-            imageUrl: "ic_popular_food_6",
-            rating: "4.2",
-            numberOfRating: "70",
-            price: "23.0",
-            slug: ""),
-        PopularFoodTiles(
-            name: "Fried Egg",
-            imageUrl: "ic_popular_food_1",
-            rating: '4.9',
-            numberOfRating: '200',
-            price: '15.06',
-            slug: "fried_egg"),
-        PopularFoodTiles(
-            name: "Red meat,Salad",
-            imageUrl: "ic_popular_food_2",
-            rating: "4.6",
-            numberOfRating: "150",
-            price: "12.00",
-            slug: ""),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Fried Egg",
+              imageUrl: "ic_popular_food_1",
+              rating: '4.9',
+              numberOfRating: '200',
+              price: '15.06',
+              slug: "fried_egg"),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Mixed Vegetable",
+              imageUrl: "ic_popular_food_3",
+              rating: "4.9",
+              numberOfRating: "100",
+              price: "17.03",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Salad With Chicken",
+              imageUrl: "ic_popular_food_4",
+              rating: "4.0",
+              numberOfRating: "50",
+              price: "11.00",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Mixed Salad",
+              imageUrl: "ic_popular_food_5",
+              rating: "4.00",
+              numberOfRating: "100",
+              price: "11.10",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Red meat,Salad",
+              imageUrl: "ic_popular_food_2",
+              rating: "4.6",
+              numberOfRating: "150",
+              price: "12.00",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Mixed Salad",
+              imageUrl: "ic_popular_food_5",
+              rating: "4.00",
+              numberOfRating: "100",
+              price: "11.10",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Potato,Meat fry",
+              imageUrl: "ic_popular_food_6",
+              rating: "4.2",
+              numberOfRating: "70",
+              price: "23.0",
+              slug: ""),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Fried Egg",
+              imageUrl: "ic_popular_food_1",
+              rating: '4.9',
+              numberOfRating: '200',
+              price: '15.06',
+              slug: "fried_egg"),
+        ),
+        SizedBox(
+          width: 180,
+          child: PopularFoodTiles(
+              name: "Red meat,Salad",
+              imageUrl: "ic_popular_food_2",
+              rating: "4.6",
+              numberOfRating: "150",
+              price: "12.00",
+              slug: ""),
+        ),
       ],
     );
   }

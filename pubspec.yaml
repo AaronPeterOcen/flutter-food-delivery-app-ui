@@ -12,9 +12,10 @@ dependencies:
 
   # UPDATED: Latest null-safe version of cupertino_icons
   cupertino_icons: ^1.0.6
+  # carousel_pro: ^2.0.0-nullsafety.0
 
   # OPTION 1: Use a null-safe alternative to carousel_pro
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.1.1
   font_awesome_flutter: ^10.12.0
 
   # OR OPTION 2: If you must use carousel_pro, use this specific version
